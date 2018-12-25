@@ -104,7 +104,7 @@ class Cards extends Component {
             <CardActionArea>
               <CardMedia 
                 className = {classes.media}
-                image={data.display_src}
+                image={"images/"+data.display_src}
                 />
               <CardContent>
                 <Typography component="p">
