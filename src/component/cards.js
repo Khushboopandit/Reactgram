@@ -81,11 +81,18 @@ class Cards extends Component {
   super(props)
     this.state = {
       open: false,
-      likeInc: 1,
+      likeInc: {},
     };
   }
-  increaseLikes = (data) => {
-      this.setState({ likeInc: this.state.likeInc+1, open: true})
+  increaseLikes = (data,i) => {
+      let likes = this.state.likeInc[i];
+      if(likes){
+        this.state.likeInc[i] = likes + 1;
+      }
+      else{
+        this.state.likeInc[i] = 1;
+      }
+      this.setState({ likeInc: this.state.likeInc, open: true})
       setTimeout(()=>{
         this.setState({open: false})
       }, 300)
@@ -113,9 +120,9 @@ class Cards extends Component {
               </CardContent>
             </CardActionArea>
             <CardActions className={classes.actions} disableActionSpacing>
-              <Button variant="outlined" component="span" className={classes.button} onClick={()=>this.increaseLikes(data)}>
+              <Button variant="outlined" component="span" className={classes.button} onClick={()=>this.increaseLikes(data, i)}>
                 <FavoriteIcon className={classes.favoriteIcon}/> 
-                  {data.likes + this.state.likeInc}
+                  {data.likes + (this.state.likeInc[i] || 0)}
               </Button>
               <Button variant="outlined" component="span" className={classes.chatBtn}>
                 <Chat/>
