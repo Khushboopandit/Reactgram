@@ -8,9 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Chat from '@material-ui/icons/QuestionAnswer';
 import Button from '@material-ui/core/Button';
-import posts from '../data/post';
 import PopLikeButton from './addFavourite';
 import PopForCommentBtn from './popForCommentBtn';
+import posts from '../data/post';
+import comments from '../data/comments';
 
 
 const styles = theme => ({
@@ -83,6 +84,7 @@ class Cards extends Component {
       open: false,
       likeInc: {},
       openCommentBox:false,
+      userComments: comments,
     };
   }
   increaseLikes = (data, i) => {
