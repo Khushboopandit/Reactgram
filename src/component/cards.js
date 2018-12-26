@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
@@ -12,6 +10,8 @@ import Chat from '@material-ui/icons/QuestionAnswer';
 import Button from '@material-ui/core/Button';
 import posts from '../data/post';
 import PopLikeButton from './addFavourite';
+import PopForCommentBtn from './popForCommentBtn';
+
 
 const styles = theme => ({
   root: {
@@ -82,6 +82,7 @@ class Cards extends Component {
     this.state = {
       open: false,
       likeInc: {},
+      openCommentBox:false,
     };
   }
   increaseLikes = (data, i) => {
@@ -98,6 +99,13 @@ class Cards extends Component {
       }, 300)
   }
 
+  showCommentBox=()=>{
+    this.setState({openCommentBox: true})
+  }
+
+  dontShowCommentBox=()=>{
+    this.setState({openCommentBox: false})
+  }
 
   render() {
     const {classes} = this.props;
@@ -108,30 +116,27 @@ class Cards extends Component {
           posts.map((data, i) => {
             console.log(data.display_src)
             return (<Card className = {classes.card} key = {i}>
-            <CardActionArea>
               <CardMedia 
                 className = {classes.media}
                 image={"images/"+data.display_src}
                 />
-              <CardContent>
                 <Typography component="p">
                 {data.caption}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
+                </Typography> 
             <CardActions className={classes.actions} disableActionSpacing>
               <Button variant="outlined" component="span" className={classes.button} onClick={()=>this.increaseLikes(data,i)}>
                 <FavoriteIcon className={classes.favoriteIcon}/> 
                   {data.likes + (this.state.likeInc[i] || 0)}
               </Button>
-              <Button variant="outlined" component="span" className={classes.chatBtn}>
+              <Button variant="outlined" component="span" className={classes.chatBtn} onClick={()=>this.showCommentBox(i)}>
                 <Chat/>
               </Button> 
             </CardActions>
             </Card>)
             })
         }
-        { this.state.open === true? <PopLikeButton visibility = {this.state.visibility}/> : null }
+        { this.state.open === true? <PopLikeButton/> : null }
+        { this.state.openCommentBox === true? <PopForCommentBtn dontShowCommentBox={this.dontShowCommentBox}/> : null }
       </div>
     );
   }    
