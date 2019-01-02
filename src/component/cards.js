@@ -9,9 +9,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import Chat from '@material-ui/icons/QuestionAnswer';
 import Button from '@material-ui/core/Button';
 import PopLikeButton from './addFavourite';
-import PopForCommentBtn from './popForCommentBtn';
+import PopForCommentBtn from './fullCardWithComment';
 import posts from '../data/post';
-import comments from '../data/comments';
 
 
 const styles = theme => ({
@@ -71,7 +70,6 @@ const styles = theme => ({
     left: "2%",
     color: "#3c5baf",
   },
-
   favoriteIcon: {
     fontSize: "16px",
   }
@@ -84,7 +82,6 @@ class Cards extends Component {
       open: false,
       likeInc: {},
       openCommentBox:false,
-      userComments: comments,
     };
   }
   increaseLikes = (data, i) => {
@@ -138,7 +135,7 @@ class Cards extends Component {
             })
         }
         { this.state.open === true? <PopLikeButton/> : null }
-        { this.state.openCommentBox === true? <PopForCommentBtn dontShowCommentBox={this.dontShowCommentBox}/> : null }
+        { this.state.openCommentBox === true? <PopForCommentBtn dontShowCommentBox={this.dontShowCommentBox} userComments={this.state.userComments}/> : null }
       </div>
     );
   }    
