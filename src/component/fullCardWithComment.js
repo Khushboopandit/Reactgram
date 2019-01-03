@@ -140,15 +140,15 @@ class PopForCommentBtn extends React.Component {
                     <Card className = {classes.card}>
                         <CardMedia 
                             className = {classes.media}
-                            image=""
+                            image={"images/"+this.props.data.display_src}
                             />
                             <Typography component="p">
-                            
+                            {this.props.data.caption}
                             </Typography> 
                         <CardActions className={classes.actions}>
                         <Button variant="outlined" component="span" className={classes.button}>
                             <FavoriteIcon className={classes.favoriteIcon}/> 
-                            
+                            {this.props.data.likes}
                         </Button>
                         <Button variant="outlined" component="span" className={classes.chatBtn}>
                             <Chat/>

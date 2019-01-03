@@ -82,9 +82,10 @@ class Cards extends Component {
       open: false,
       likeInc: {},
       openCommentBox:false,
+      data: null,
     };
   }
-  increaseLikes = (data, i) => {
+  increaseLikes = (i) => {
     let likes = this.state.likeInc[i];
     if (likes){
       this.state.likeInc[i] = likes + 1;
@@ -98,12 +99,12 @@ class Cards extends Component {
       }, 300)
   }
 
-  showCommentBox=()=>{
-    this.setState({openCommentBox: true})
+  showCommentBox=(data)=>{
+    this.setState({openCommentBox: true, data: data})
   }
 
   dontShowCommentBox=()=>{
-    this.setState({openCommentBox: false})
+    this.setState({openCommentBox: false, data:null})
   }
 
   render() {
@@ -113,7 +114,6 @@ class Cards extends Component {
       <div className = {classes.root}>
         {
           posts.map((data, i) => {
-            console.log(data.display_src)
             return (<Card className = {classes.card} key = {i}>
               <CardMedia 
                 className = {classes.media}
@@ -127,7 +127,7 @@ class Cards extends Component {
                 <FavoriteIcon className={classes.favoriteIcon}/> 
                   {data.likes + (this.state.likeInc[i] || 0)}
               </Button>
-              <Button variant="outlined" component="span" className={classes.chatBtn} onClick={()=>this.showCommentBox(i)}>
+              <Button variant="outlined" component="span" className={classes.chatBtn} onClick={()=>this.showCommentBox(data,i)}>
                 <Chat/>
               </Button> 
             </CardActions>
@@ -135,7 +135,7 @@ class Cards extends Component {
             })
         }
         { this.state.open === true? <PopLikeButton/> : null }
-        { this.state.openCommentBox === true? <PopForCommentBtn dontShowCommentBox={this.dontShowCommentBox} userComments={this.state.userComments}/> : null }
+        { this.state.openCommentBox === true? <PopForCommentBtn dontShowCommentBox={this.dontShowCommentBox} data = {this.state.data}/> : null }
       </div>
     );
   }    
