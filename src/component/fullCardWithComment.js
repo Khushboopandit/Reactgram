@@ -13,7 +13,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import comments from '../data/comments';
 
 const styles = theme => ({
       overly: {
@@ -132,7 +131,7 @@ class PopForCommentBtn extends React.Component {
     }
 
     render(){
-        const {classes} = this.props
+        const {classes,i} = this.props
         return(
             <div className = {classes.overly} >
                 <div className = {classes.popup} >
@@ -156,12 +155,15 @@ class PopForCommentBtn extends React.Component {
                         </CardActions>
                     </Card>
                     <div className={classes.listOfComment}>
-                      <List>
+                    {
+                    this.props.comments.map((comment,i)=>{
+                      return(<List key = {i}>
                         <ListItem button>
-                          <ListItemText primary="Phone ringtone" secondary="Titania" />
+                          <ListItemText primary={comment.user} secondary={comment.user} />
                         </ListItem>
-                        <Divider />
-                      </List>
+                        <Divider/>
+                      </List>)
+                    })}
                     </div>
                 </div>
             </div>

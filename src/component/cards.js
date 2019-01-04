@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import PopLikeButton from './addFavourite';
 import PopForCommentBtn from './fullCardWithComment';
 import posts from '../data/post';
-
+import comments from '../data/comments';
 
 const styles = theme => ({
   root: {
@@ -83,6 +83,8 @@ class Cards extends Component {
       likeInc: {},
       openCommentBox:false,
       data: null,
+      comments: null,
+      i:null
     };
   }
   increaseLikes = (i) => {
@@ -99,8 +101,8 @@ class Cards extends Component {
       }, 300)
   }
 
-  showCommentBox=(data)=>{
-    this.setState({openCommentBox: true, data: data})
+  showCommentBox=(data,i)=>{
+    this.setState({openCommentBox: true, data: data, i:i})
   }
 
   dontShowCommentBox=()=>{
@@ -135,7 +137,7 @@ class Cards extends Component {
             })
         }
         { this.state.open === true? <PopLikeButton/> : null }
-        { this.state.openCommentBox === true? <PopForCommentBtn dontShowCommentBox={this.dontShowCommentBox} data = {this.state.data}/> : null }
+        { this.state.openCommentBox === true? <PopForCommentBtn dontShowCommentBox={this.dontShowCommentBox} data = {this.state.data} comments = {this.state.comments} i = {this.state.i}/> : null }
       </div>
     );
   }    
