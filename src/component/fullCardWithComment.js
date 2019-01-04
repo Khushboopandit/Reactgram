@@ -121,6 +121,10 @@ const styles = theme => ({
           float: "none",
           width: "100%",
         },
+        caption:{
+          paddingTop: "18px",
+          fontSize: "16px",
+        }
       }
 })
 
@@ -132,6 +136,8 @@ class PopForCommentBtn extends React.Component {
 
     render(){
         const {classes,i} = this.props
+        console.log(this.props.comment[this.props.data.code])
+        console.log(this.props)
         return(
             <div className = {classes.overly} >
                 <div className = {classes.popup} >
@@ -141,7 +147,7 @@ class PopForCommentBtn extends React.Component {
                             className = {classes.media}
                             image={"images/"+this.props.data.display_src}
                             />
-                            <Typography component="p">
+                            <Typography component="p" className={classes.caption}>
                             {this.props.data.caption}
                             </Typography> 
                         <CardActions className={classes.actions}>
@@ -156,12 +162,12 @@ class PopForCommentBtn extends React.Component {
                     </Card>
                     <div className={classes.listOfComment}>
                     {
-                    this.props.comments.map((comment,i)=>{
-                      return(<List key = {i}>
-                        <ListItem button>
-                          <ListItemText primary={comment.user} secondary={comment.user} />
-                        </ListItem>
-                        <Divider/>
+                      this.props.comment[this.props.data.code].map((c,index)=>{
+                        return(<List key = {index}>
+                          <ListItem button>
+                            <ListItemText primary={c.user} secondary={c.text} />
+                          </ListItem>
+                          <Divider/>
                       </List>)
                     })}
                     </div>

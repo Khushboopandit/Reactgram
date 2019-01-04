@@ -72,37 +72,35 @@ const styles = theme => ({
   },
   favoriteIcon: {
     fontSize: "16px",
+  },
+  caption:{
+    paddingTop: "18px",
+    fontSize: "16px",
   }
 });
 
 class Cards extends Component {
   constructor(props){
   super(props)
+    const { data } = this.props;
     this.state = {
       open: false,
-      likeInc: {},
+      likeInc: 0,
       openCommentBox:false,
       data: null,
-      comments: null,
-      i:null
+      comment: comments,
     };
   }
   increaseLikes = (i) => {
-    let likes = this.state.likeInc[i];
-    if (likes){
-      this.state.likeInc[i] = likes + 1;
-    }
-    else{
-      this.state.likeInc[i] = 1;
-    }
-      this.setState({ likeInc: this.state.likeInc, open: true})
+
+      this.setState( { likeInc: this.state.likeInc + 1, open: true})
       setTimeout(()=>{
         this.setState({open: false})
       }, 300)
   }
 
   showCommentBox=(data,i)=>{
-    this.setState({openCommentBox: true, data: data, i:i})
+    this.setState({openCommentBox: true, data: data})
   }
 
   dontShowCommentBox=()=>{
@@ -121,13 +119,13 @@ class Cards extends Component {
                 className = {classes.media}
                 image={"images/"+data.display_src}
                 />
-                <Typography component="p">
+                <Typography component="p" className={classes.caption}>
                 {data.caption}
                 </Typography> 
             <CardActions className={classes.actions} disableActionSpacing>
               <Button variant="outlined" component="span" className={classes.button} onClick={()=>this.increaseLikes(data,i)}>
                 <FavoriteIcon className={classes.favoriteIcon}/> 
-                  {data.likes + (this.state.likeInc[i] || 0)}
+                {data.likes}
               </Button>
               <Button variant="outlined" component="span" className={classes.chatBtn} onClick={()=>this.showCommentBox(data,i)}>
                 <Chat/>
@@ -137,9 +135,18 @@ class Cards extends Component {
             })
         }
         { this.state.open === true? <PopLikeButton/> : null }
-        { this.state.openCommentBox === true? <PopForCommentBtn dontShowCommentBox={this.dontShowCommentBox} data = {this.state.data} comments = {this.state.comments} i = {this.state.i}/> : null }
+        { 
+          this.state.openCommentBox === true? 
+          <PopForCommentBtn 
+            dontShowCommentBox={this.dontShowCommentBox} 
+            data = {this.state.data} 
+            comment={this.state.comment} 
+            i = {this.state.i}/> 
+            : null 
+        } 
+          
       </div>
-    );
+    );  
   }    
 }
 
