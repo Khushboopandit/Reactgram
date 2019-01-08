@@ -57,16 +57,19 @@ const styles = theme => ({
         width: "70%",
         boxShadow: "none",
         [theme.breakpoints.down('md')]:{
-          maxWidth: 960,
+          width: "100%",
           float: "none",
+          maxWidth: 668,
         },
         [theme.breakpoints.down('sm')]:{
           float: "none",
           width: "100%",
+          maxWidth: 668,
         },
         [theme.breakpoints.down('xs')]:{
           float: "none",
           width: "100%",
+          maxWidth: 668,
         },
 
       },
@@ -107,7 +110,7 @@ const styles = theme => ({
       },
       listOfComment: {
         float: "right",
-        width: "30%",
+        width: "38%",
         marginTop: "44px",  
         [theme.breakpoints.down('md')]:{
           float: "none",
@@ -125,51 +128,114 @@ const styles = theme => ({
           paddingTop: "18px",
           fontSize: "16px",
         }
+      },
+      inputs: {
+
       }
 })
 
 
 class PopForCommentBtn extends React.Component {
-    state = {
+  constructor(props){
+    super(props);
+    const {comment,data} = props;
+    this.state = {
+        userName: "",
+        userComment: "",
+        comment: comment,
+        data:data,
+        totalCount:0,
+      }
+  }  
+  //targeting  input value for making control input
+  updateUserCom = (e) => {
+      this.setState({ userComment: e.target.value })
+  }
 
-    }
+  updateUserName = (e) => {    
+    this.setState({ userName: e.target.value })
+  }
+
+  //appending a value of input in commet
+  addComment=(e)=>{
+    // console.log(e)
+    //     let commentsData = this.state.comment[this.state.data.code];
+    //     console.log(commentsData)
+    //     if(commentsData.length <  1){
+    //       commentsData = {
+    //         text:
+    //       }
+    //     }
+    //     const {userComment , userName} =  this.state;
+    //     commentsData.text.push(userComment);
+    //     commentsData.user.push(userName)
+
+    //     this.setState({comment:commentsData});
+    // [
+    //   {
+    //     text,
+    //     user,
+    //   },
+    //   {
+    //     text,
+    //     user,
+    //   }
+    // ]
+
+  }
 
     render(){
-        const {classes,i} = this.props
-        console.log(this.props.comment[this.props.data.code])
-        console.log(this.props)
+        const {classes,data} = this.props
+
         return(
             <div className = {classes.overly} >
                 <div className = {classes.popup} >
+                {/* for closing a popup I made function called dontShowCommentBox */}
                     <Clear className={classes.clearDeleteBox} onClick = {()=>this.props.dontShowCommentBox()}/>
                     <Card className = {classes.card}>
                         <CardMedia 
                             className = {classes.media}
-                            image={"images/"+this.props.data.display_src}
+                            image={"images/"+data.display_src}
                             />
                             <Typography component="p" className={classes.caption}>
-                            {this.props.data.caption}
+                            {data.caption}
                             </Typography> 
                         <CardActions className={classes.actions}>
-                        <Button variant="outlined" component="span" className={classes.button}>
+                        <Button variant="outlined" component="span" className={classes.button} onClick={()=>this.props.increaseLikes(data)}>
                             <FavoriteIcon className={classes.favoriteIcon}/> 
-                            {this.props.data.likes}
+                            {data.likes}
                         </Button>
                         <Button variant="outlined" component="span" className={classes.chatBtn}>
                             <Chat/>
+                            {this.state.count}
                         </Button> 
                         </CardActions>
                     </Card>
                     <div className={classes.listOfComment}>
                     {
-                      this.props.comment[this.props.data.code].map((c,index)=>{
-                        return(<List key = {index}>
+                      this.state.comment[data.code].map((commentBox,index)=>{
+                        return(
+                        <List key = {index}>
                           <ListItem button>
-                            <ListItemText primary={c.user} secondary={c.text} />
+                            <ListItemText primary={commentBox.user} secondary={commentBox.text}/>
                           </ListItem>
                           <Divider/>
                       </List>)
                     })}
+                    <CardActions>
+                      <input 
+                      placeholder="user"
+                      value = {this.state.userName} 
+                      onChange={this.updateUserName} 
+                      className={classes.inputs}
+                      />
+                      <input 
+                      placeholder="comment" 
+                      value = {this.state.userComment} 
+                      onChange={this.updateUserCom} 
+                      // for appending a value of inputs by  cliking on Enter button
+                      onKeyPress={this.addComment}/>                            
+                    </CardActions>
                     </div>
                 </div>
             </div>

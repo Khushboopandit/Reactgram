@@ -5,6 +5,39 @@ const comments = {
             "user": "heavymetaladam"
         }
     ],
+    "BAcJeJrQca9":[
+
+    ],
+    "-hZh6IQcfN":[
+
+    ],
+    "-B3eiIwcYV":[
+
+    ],
+    "BAAJqbOQcW5":[
+
+    ],
+    "-1rhFawccs":[
+
+    ],
+    "-pjx-gQcVi":[
+
+    ],
+    "-oTZ0zQcWt":[
+
+    ],
+    "-mxKQoQcQh":[
+        
+    ],
+    "-fasqlQceO":[
+        
+    ],
+    "-VBgtGQcSf":[
+        
+    ],
+    "-FpTyHQcau":[
+          
+    ],
     "BAcyDyQwcXX":[
         {
             "text":"Wes. WE should have lunch.",
