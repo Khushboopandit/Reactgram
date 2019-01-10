@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "revision": "e695dbf6c6dda85fac9d",
-    "url": "/reactgram/static/js/main.e695dbf6.chunk.js"
+    "revision": "b7b0e2ab7e73f28b3cf0",
+    "url": "/reactgram/static/js/main.b7b0e2ab.chunk.js"
   },
   {
     "revision": "fe1c400d01a137127474",
@@ -12,7 +12,7 @@ self.__precacheManifest = [
     "url": "/reactgram/static/js/runtime~main.215f249c.js"
   },
   {
-    "revision": "7b3c9e7dd0a65340a99bc4d0ce25bcee",
+    "revision": "7cade49d240888134abab57b17ba6844",
     "url": "/reactgram/index.html"
   }
 ];
