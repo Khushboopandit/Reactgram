@@ -107,8 +107,7 @@ class Cards extends Component {
 
   render() {
     const {classes} = this.props;
-
-
+    const {comment} = this.state
     return (
       <div className = {classes.root}>
         {
@@ -128,24 +127,23 @@ class Cards extends Component {
               </Button>
               <Button variant="outlined" component="span" className={classes.chatBtn} onClick={()=>this.showCommentBox(data)}>
                 <Chat/>
-                
+                {comment[data.code].length}
               </Button> 
             </CardActions>
             </Card>)
             })
-        }
-        { this.state.open === true? <PopLikeButton/> : null }
-        { 
-          this.state.openCommentBox === true? 
-          <PopForCommentBtn 
-            dontShowCommentBox={this.dontShowCommentBox} 
-            data = {this.state.data} 
-            comment={this.state.comment} 
-            increaseLikes = {this.increaseLikes}
-            /> 
-            : null 
-        } 
-          
+            }
+            { this.state.open === true? <PopLikeButton/> : null }
+            { 
+              this.state.openCommentBox === true? 
+              <PopForCommentBtn 
+                dontShowCommentBox={this.dontShowCommentBox} 
+                data = {this.state.data} 
+                comment={this.state.comment} 
+                increaseLikes = {this.increaseLikes}
+                /> 
+                : null 
+            } 
       </div>
     );  
   }    
