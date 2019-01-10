@@ -108,6 +108,7 @@ class Cards extends Component {
   render() {
     const {classes} = this.props;
 
+
     return (
       <div className = {classes.root}>
         {
@@ -127,6 +128,7 @@ class Cards extends Component {
               </Button>
               <Button variant="outlined" component="span" className={classes.chatBtn} onClick={()=>this.showCommentBox(data)}>
                 <Chat/>
+                
               </Button> 
             </CardActions>
             </Card>)

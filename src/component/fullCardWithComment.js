@@ -129,8 +129,8 @@ const styles = theme => ({
           fontSize: "16px",
         }
       },
-      inputs: {
-
+      commentInputs: {
+        width: "100%"
       }
 })
 
@@ -144,7 +144,7 @@ class PopForCommentBtn extends React.Component {
         userComment: "",
         comment: comment,
         data:data,
-        totalCount:0,
+        totalComments:comment[data.code]?comment[data.code].length:0,
       }
   }  
   //targeting  input value for making control input
@@ -158,34 +158,32 @@ class PopForCommentBtn extends React.Component {
 
   //appending a value of input in commet
   addComment=(e)=>{
-    // console.log(e)
-    //     let commentsData = this.state.comment[this.state.data.code];
-    //     console.log(commentsData)
-    //     if(commentsData.length <  1){
-    //       commentsData = {
-    //         text:
-    //       }
-    //     }
-    //     const {userComment , userName} =  this.state;
-    //     commentsData.text.push(userComment);
-    //     commentsData.user.push(userName)
+    if (e.charCode === 13) {
+      const {userComment , userName, comment, data} =  this.state;
+      // console.log(comment[data.code])
 
-    //     this.setState({comment:commentsData});
-    // [
-    //   {
-    //     text,
-    //     user,
-    //   },
-    //   {
-    //     text,
-    //     user,
-    //   }
-    // ]
+      // when there are no comments
+      if (comment[data.code] === undefined){
+          comment[data.code] = [];
+      }
+      
+      let newComment = {};
+      newComment['text'] = userComment; // {'text': userComment}
+      newComment['user'] = userName; // {'text': userComment, 'user':userName}
+      comment[data.code].push(newComment);
 
+     // set the state
+      this.setState((prevState) => ({ 
+          comment : comment, 
+          totalComments: prevState.totalComments+1,
+        })
+      );
+    } 
   }
 
     render(){
         const {classes,data} = this.props
+        const {totalComments} = this.state
 
         return(
             <div className = {classes.overly} >
@@ -207,7 +205,7 @@ class PopForCommentBtn extends React.Component {
                         </Button>
                         <Button variant="outlined" component="span" className={classes.chatBtn}>
                             <Chat/>
-                            {this.state.count}
+                            {totalComments}
                         </Button> 
                         </CardActions>
                     </Card>
@@ -227,12 +225,13 @@ class PopForCommentBtn extends React.Component {
                       placeholder="user"
                       value = {this.state.userName} 
                       onChange={this.updateUserName} 
-                      className={classes.inputs}
+                      className={classes.commentInputs}
                       />
                       <input 
                       placeholder="comment" 
                       value = {this.state.userComment} 
                       onChange={this.updateUserCom} 
+                      className={classes.commentInputs}
                       // for appending a value of inputs by  cliking on Enter button
                       onKeyPress={this.addComment}/>                            
                     </CardActions>
