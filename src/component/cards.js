@@ -76,6 +76,12 @@ const styles = theme => ({
   caption:{
     paddingTop: "18px",
     fontSize: "16px",
+    [theme.breakpoints.down('md')]:{
+      fontSize: "22px",
+    },
+    [theme.breakpoints.down('xs')]:{
+      fontSize: "18px"
+    },
   }
 });
 
